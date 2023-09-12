@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "fastapi-slowly"
-version = "0.2.0"
+version = "0.4.0"
 description = "Code-along for creating data apps with FastAPI and friends."
 authors = ["liquidcarbon <akscrps@gmail.com>"]
 readme = "README.md"
@@ -10,6 +10,7 @@ python = "^3.11"
 fastapi = "^0.103.1"
 uvicorn = "^0.23.2"
 gunicorn = "^21.2.0"
+requests = "^2.31.0"
 
 
 [build-system]
