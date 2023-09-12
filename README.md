@@ -1,39 +1,37 @@
 # Navigation
 
-## [`03 <- `](https://github.com/liquidcarbon/FastAPI-Slowly/tree/03)**`04`**[` -> 05`](https://github.com/liquidcarbon/FastAPI-Slowly/tree/05)
+## [`04 <- `](https://github.com/liquidcarbon/FastAPI-Slowly/tree/04)**`05`**[` -> 06`](https://github.com/liquidcarbon/FastAPI-Slowly/tree/06)
 
 
-# 04. Return a response from an extraterrestrial API
+# 05. Add API version to response
 
 ```bash
-a@SNAVVV:~/code/FastAPI-Slowly$ git checkout -b 04
-Switched to a new branch '04'
-a@SNAVVV:~/code/FastAPI-Slowly$ poetry add requests
-Using version ^2.31.0 for requests
-
-Updating dependencies
-Resolving dependencies... (0.2s)
-
-Package operations: 4 installs, 0 updates, 0 removals
-
-  • Installing certifi (2023.7.22)
-  • Installing charset-normalizer (3.2.0)
-  • Installing urllib3 (2.0.4)
-  • Installing requests (2.31.0)
-
-Writing lock file
-
-a@SNAVVV:~/code/FastAPI-Slowly$
-a@SNAVVV:~/code/FastAPI-Slowly$
+a@SNAVVV:~/code/FastAPI-Slowly$ git checkout -b 05
+Switched to a new branch '05'
+a@SNAVVV:~/code/FastAPI-Slowly$ touch fastapi_slowly/version.py
+a@SNAVVV:~/code/FastAPI-Slowly$ python -c 'from fastapi_slowly.version import get_version; print(get_version())'
+0.4.0
 a@SNAVVV:~/code/FastAPI-Slowly$ poetry version minor
-Bumping version from 0.3.0 to 0.4.0
-a@SNAVVV:~/code/FastAPI-Slowly$
-a@SNAVVV:~/code/FastAPI-Slowly$
+Bumping version from 0.4.0 to 0.5.0
+a@SNAVVV:~/code/FastAPI-Slowly$ python -c 'from fastapi_slowly.version import get_version; print(get_version())'
+0.5.0
+a@SNAVVV:~/code/FastAPI-Slowly$ git status
+On branch 05
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   README.md
+        modified:   fastapi_slowly/api.py
+        modified:   image.png
+        modified:   pyproject.toml
 
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        fastapi_slowly/version.py
 ```
 
-![Step 04 - HTTP request to ISS API](image.png)
+![Step 05 - respond with version](image.png)
 
 ---
 
-## [`03 <- `](https://github.com/liquidcarbon/FastAPI-Slowly/tree/03)**`04`**[` -> 05`](https://github.com/liquidcarbon/FastAPI-Slowly/tree/05)
+## [`04 <- `](https://github.com/liquidcarbon/FastAPI-Slowly/tree/04)**`05`**[` -> 06`](https://github.com/liquidcarbon/FastAPI-Slowly/tree/06)
