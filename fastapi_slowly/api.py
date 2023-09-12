@@ -13,7 +13,7 @@ app = FastAPI()
 async def git_time_travel(branch: str, endpoint: str|None = None):
     print(branch, endpoint)
     import os
-    os.system(f"git checkout {branch}")
+    os.system(f"git checkout {branch} && sleep 2")
     return RedirectResponse(f"/{endpoint or ''}")
 
 
