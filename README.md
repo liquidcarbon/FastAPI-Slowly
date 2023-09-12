@@ -20,7 +20,17 @@ Changes not staged for commit:
         modified:   fastapi_slowly/api.py
         deleted:    image.png
         modified:   pyproject.toml
+
+
+a@SNAVVV:~/code/FastAPI-Slowly$ git checkout 06
+Switched to branch '06'
+Your branch is up to date with 'origin/06'.
 ```
+
+![06 - Travel Back](image.png)
+
+![06 - Travel Back, Log messages](image-1.png)
+
 
 ---
 
