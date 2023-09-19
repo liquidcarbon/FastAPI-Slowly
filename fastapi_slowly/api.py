@@ -68,7 +68,7 @@ async def get_element(request: Request, Z: int):
             element_info = line
             break
 
-    element_html = "<br>".join(
+    element_html = "<br>\n".join(
         [key + ": " + value for key, value in zip(header, element_info)]
     )
 
