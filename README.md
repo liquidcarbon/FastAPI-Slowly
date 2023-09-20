@@ -1,22 +1,20 @@
 # Navigation
 
-## [`09 <- `](https://github.com/liquidcarbon/FastAPI-Slowly/tree/09)**`10`**[` -> 11`](https://github.com/liquidcarbon/FastAPI-Slowly/tree/11)
+## [`10 <- `](https://github.com/liquidcarbon/FastAPI-Slowly/tree/10)**`11`**[` -> 12`](https://github.com/liquidcarbon/FastAPI-Slowly/tree/12)
 
 
-# 10. Populating an HTML table
+# 11. Styling with Bootstrap CSS
 
 ```bash
-a@SNAVVV:~/code/FastAPI-Slowly$ git checkout -b 10
-Switched to a new branch '10'
-
-a@SNAVVV:~/code/FastAPI-Slowly$ touch static/templates/table_basic.html.jinja
+a@SNAVVV:~/code/FastAPI-Slowly$ git checkout -b 11
+Switched to a new branch '11'
 
 a@SNAVVV:~/code/FastAPI-Slowly$ poetry version minor
-Bumping version from 0.9.0 to 0.10.0
+Bumping version from 0.10.0 to 0.11.0
 ```
 
-![table](image.png)
+![styled table](image.png)
 
 ---
 
-## [`09 <- `](https://github.com/liquidcarbon/FastAPI-Slowly/tree/09)**`10`**[` -> 11`](https://github.com/liquidcarbon/FastAPI-Slowly/tree/11)
+## [`10 <- `](https://github.com/liquidcarbon/FastAPI-Slowly/tree/10)**`11`**[` -> 12`](https://github.com/liquidcarbon/FastAPI-Slowly/tree/12)

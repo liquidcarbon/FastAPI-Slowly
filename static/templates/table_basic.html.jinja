@@ -1,7 +1,9 @@
+{% autoescape false %}
 <table
   {{ 'class="{}"'.format(classes) if classes }}
   {{ 'id="{}"'.format(table_id) if table_id }}
 >
+{% endautoescape %}
   <thead>
   <tr>
     {%- for header_value in header if header %}
