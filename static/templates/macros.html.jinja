@@ -1,0 +1,32 @@
+{% macro header_row(header) %}
+<tr>
+  {%- for header_value in header if header %}
+  <th>{{ header_value }}</th>
+  {%- endfor %}
+</tr>
+{% endmacro %}
+
+{% macro rows(data) %}
+{%- for row in data %}
+<tr>
+  {%- for column_value in row %}
+  <td>{{ column_value }}</td>
+  {%- endfor %}
+</tr>
+{%- endfor %}
+{% endmacro %}
+
+{% macro table_basic(header, data, kwargs) %}
+{% autoescape false %}
+<table
+  {{ 'class="{}"'.format(kwargs.classes) if kwargs.classes }}
+  {{ 'id="{}"'.format(kwargs.table_id) if kwargs.table_id }}
+>
+  <caption>{{ kwargs.caption }}</caption>
+  <thead {{ 'class="{}"' .format(kwargs.thead_classes) if kwargs.thead_classes }}>
+    {{ header_row(header) }}
+  </thead>
+  {{ rows(data) }}
+</table>
+{% endautoescape %}
+{% endmacro %}

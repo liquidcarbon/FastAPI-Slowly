@@ -1,21 +1,3 @@
-{% autoescape false %}
-<table
-  {{ 'class="{}"'.format(classes) if classes }}
-  {{ 'id="{}"'.format(table_id) if table_id }}
->
-{% endautoescape %}
-  <thead>
-  <tr>
-    {%- for header_value in header if header %}
-    <th>{{ header_value }}</th>
-    {%- endfor %}
-  </tr>
-  </thead>
-  {%- for row in data %}
-  <tr>
-    {%- for column_value in row %}
-      <td>{{ column_value }}</td>
-    {%- endfor %}
-  </tr>
-  {%- endfor %}
-</table>
+{% from 'macros.html.jinja' import table_basic %}
+
+{{ table_basic(header, data, kwargs) }}
