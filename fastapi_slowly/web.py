@@ -5,6 +5,10 @@ from markupsafe import Markup
 from pathlib import Path
 
 
+class RenderError(Exception):
+    pass
+
+
 class Templates:
     static_folder = Path(__file__).parent.parent / "static"
     loader = FileSystemLoader(static_folder / "templates")
@@ -18,6 +22,9 @@ class Templates:
 
         # placeholder content
         kwargs.setdefault("content", DEFAULTS.HTML_CONTENT)
+
+        # placeholder for empty data tables
+        kwargs.setdefault("data", DEFAULTS.HTML_TABLE_DATA)
 
         # div class to wrap the content in (default: None, no wrapping)
         kwargs.setdefault("div_classes", DEFAULTS.HTML_DIV_CLASSES)
@@ -40,7 +47,10 @@ class Templates:
         # version (goes in footer)
         kwargs.setdefault("version", DEFAULTS.HTML_FOOTER_VERSION)
 
-        return self.template.render(**kwargs).lstrip("\n")
+        try:
+            return self.template.render(**kwargs).lstrip("\n")
+        except Exception as e:
+            raise RenderError(e)
 
 
 class DEFAULTS:
@@ -48,6 +58,7 @@ class DEFAULTS:
     HTML_DIV_CLASSES = None
     HTML_FOOTER_VERSION = "Version Latest.Greatest"
     HTML_TABLE_CLASSES = "table table-striped caption-bottom"
+    HTML_TABLE_DATA = []
     HTML_TABLE_ID = "myTable"
     HTML_TABLE_CAPTION = "Such Table. Much rows. Very column."
     HTML_THEAD_CLASSES = None

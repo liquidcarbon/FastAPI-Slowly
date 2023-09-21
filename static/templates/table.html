@@ -1,6 +1,6 @@
 {% macro header_row(header) -%}
 <tr>
-  {%- for header_value in header if header -%}
+  {%- for header_value in header or [] -%}
   <th>{{ header_value }}</th>
   {%- endfor -%}
 </tr>
@@ -28,13 +28,14 @@
 <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.colVis.min.js"></script>
 {%- endif %}
 {% autoescape false -%}
+{% set header = kwargs.header|default(kwargs.data[0]) %}
 {% set thead_classes = 'class="{}"' .format(kwargs.thead_classes) if kwargs.thead_classes %}
 {% if kwargs.div_classes -%}
 <div class="{{ kwargs.div_classes }}">{%- endif %}
   <table class="{{ kwargs.table_classes }}" id="{{ kwargs.table_id }}">
     {% if kwargs.table_caption -%}<caption>{{ kwargs.table_caption }}</caption>{%- endif %}
     <thead {{ thead_classes }}>
-      {{ header_row(kwargs.header) }}
+      {{ header_row(header) }}
     </thead>
     {{ rows(kwargs.data)|indent(4) }}
     <tfoot>
