@@ -6,6 +6,7 @@
 </tr>
 {% endmacro %}
 
+
 {% macro rows(data) %}
 {%- for row in data %}
 <tr>
@@ -16,17 +17,36 @@
 {%- endfor %}
 {% endmacro %}
 
+
 {% macro table_basic(header, data, kwargs) %}
 {% autoescape false %}
-<table
-  {{ 'class="{}"'.format(kwargs.classes) if kwargs.classes }}
-  {{ 'id="{}"'.format(kwargs.table_id) if kwargs.table_id }}
->
+<table {{ 'class="{}"' .format(kwargs.classes) if kwargs.classes }} {{ 'id="{}"' .format(kwargs.table_id) if
+  kwargs.table_id }}>
   <caption>{{ kwargs.caption }}</caption>
   <thead {{ 'class="{}"' .format(kwargs.thead_classes) if kwargs.thead_classes }}>
     {{ header_row(header) }}
   </thead>
   {{ rows(data) }}
 </table>
+{% endautoescape %}
+{% endmacro %}
+
+
+{% macro table(header, data, kwargs) -%}
+{% autoescape false -%}
+{% set classes = kwargs.classes or "" %}
+{% set _id = kwargs.table_id or "myTable" %}
+<table class="{{ classes }}" id="{{ _id }}">
+  <caption>{{ kwargs.caption }}</caption>
+  <thead {{ 'class="{}"' .format(kwargs.thead_classes) if kwargs.thead_classes }}>
+    {{ header_row(header) }}
+  </thead>
+  {{ rows(data) }}
+</table>
+<script>
+  $(document).ready(function () {
+    $('#{{ _id }}').DataTable();
+  });
+</script>
 {% endautoescape %}
 {% endmacro %}

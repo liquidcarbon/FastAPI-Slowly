@@ -68,7 +68,7 @@ async def get_element(request: Request, Z: int):
             element_info = line
             break
 
-    element_html = templates.get_template("table_basic.html.jinja").render(
+    element_html = templates.get_template("table.html.jinja").render(
         header=["key", "value"],
         data=[(key, value) for key, value in zip(header, element_info)],
         kwargs=dict(
