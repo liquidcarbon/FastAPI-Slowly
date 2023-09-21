@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "fastapi-slowly"
-version = "0.7.1"
+version = "0.7.2"
 description = "Code-along for creating data apps with FastAPI and friends."
 authors = ["liquidcarbon <akscrps@gmail.com>"]
 readme = "README.md"
