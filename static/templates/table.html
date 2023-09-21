@@ -1,40 +1,84 @@
 {% macro header_row(header) -%}
 <tr>
-  {%- for header_value in header if header %}
+  {%- for header_value in header if header -%}
   <th>{{ header_value }}</th>
-  {%- endfor %}
+  {%- endfor -%}
 </tr>
 {%- endmacro %}
 
 {% macro rows(data) -%}
-{%- for row in data %}
+{% for row in data -%}
 <tr>
-  {%- for column_value in row %}
+  {%- for column_value in row -%}
   <td>{{ column_value }}</td>
-  {%- endfor %}
+  {%- endfor -%}
 </tr>
-{%- endfor %}
+{% endfor -%}
 {%- endmacro %}
 
 {% macro table() -%}
 {% if kwargs.cdn != false -%}
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css" />
 <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
   integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.colVis.min.js"></script>
 {%- endif %}
 {% autoescape false -%}
-<table class="{{ kwargs.table_classes }}" id="{{ kwargs.table_id }}">
-  <caption>{{ kwargs.table_caption }}</caption>
-  <thead {{ 'class="{}"'.format(kwargs.thead_classes) if kwargs.thead_classes }}>
-    {{ header_row(kwargs.header) }}
-  </thead>
-  {{ rows(kwargs.data) }}
-</table>
+{% set thead_classes = 'class="{}"' .format(kwargs.thead_classes) if kwargs.thead_classes %}
+{% if kwargs.div_classes -%}
+<div class="{{ kwargs.div_classes }}">{%- endif %}
+  <table class="{{ kwargs.table_classes }}" id="{{ kwargs.table_id }}">
+    {% if kwargs.table_caption -%}<caption>{{ kwargs.table_caption }}</caption>{%- endif %}
+    <thead {{ thead_classes }}>
+      {{ header_row(kwargs.header) }}
+    </thead>
+    {{ rows(kwargs.data)|indent(4) }}
+    <tfoot>
+      {{ header_row(kwargs.header) }}
+    </tfoot>
+  </table>
+  {% if kwargs.div_classes -%}
+</div>{%- endif %}
 <script>
   $(document).ready(function () {
-    $('#{{ kwargs.table_id }}').DataTable({
-      "order": {{ kwargs.dt_order }}
+    var table = $('#{{ kwargs.table_id }}').DataTable({
+      buttons: ['copy', 'colvis'],
+      buttons: [
+        'colvis',
+        {
+          extend: 'copy',
+          messageBottom: null,
+          messageTop: null,
+          title: null
+        }
+      ],
+      dom: 'Bfrtpli',
+      language: { "thousands": "," },
+      lengthMenu: [[10, 20, 40, -1], [10, 20, 40, "All"]],
+      scrollCollapse: true,
+      scrollY: '65vh',
+      initComplete: function () {
+        this.api()
+          .columns()
+          .every(function () {
+            var column = this;
+            var title = column.header().textContent;
+
+            // Create input element and add event listener
+            $('<input type="text" placeholder="search: ' + title + '" />')
+              .appendTo($(column.footer()).empty())
+              .on('keyup change clear', function () {
+                if (column.search() !== this.value) {
+                  column.search(this.value).draw();
+                }
+              });
+          });
+      },
+      order: {{ kwargs.dt_order }},
     });
   });
 </script>
@@ -42,12 +86,13 @@
 {% endmacro %}
 
 {{ table(
-  data=data,
-  header=header,
-  table_classes=table_classes,
-  table_id=table_id,
-  table_caption=table_caption,
-  thead_classes=thead_classes,
-  cdn=cdn,
-  dt_order=dt_order,
+data=data,
+header=header,
+div_classes=div_classes,
+table_classes=table_classes,
+table_id=table_id,
+table_caption=table_caption,
+thead_classes=thead_classes,
+cdn=cdn,
+dt_order=dt_order,
 ) }}

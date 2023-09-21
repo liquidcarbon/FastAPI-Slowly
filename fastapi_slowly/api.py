@@ -50,8 +50,9 @@ async def get_element(Z: int):
     content = Templates("table.html").render(
         header=["keys", "values"],
         data=element_info,
-        table_caption="What a great element!",
-        # dt_order="[[0, 'asc']]"  # default: unsorted
+        # table_caption="What a great element!",
+        # dt_order="[[0, 'asc']]",  # default: unsorted
+        div_classes="col-5",
     )
 
     return Templates().render(content=content)
