@@ -1,6 +1,6 @@
 {% macro header_row(header) -%}
 <tr>
-  {%- for header_value in header or [] -%}
+  {%- for header_value in header|default([]) -%}
   <th>{{ header_value }}</th>
   {%- endfor -%}
 </tr>
