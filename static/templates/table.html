@@ -1,0 +1,53 @@
+{% macro header_row(header) -%}
+<tr>
+  {%- for header_value in header if header %}
+  <th>{{ header_value }}</th>
+  {%- endfor %}
+</tr>
+{%- endmacro %}
+
+{% macro rows(data) -%}
+{%- for row in data %}
+<tr>
+  {%- for column_value in row %}
+  <td>{{ column_value }}</td>
+  {%- endfor %}
+</tr>
+{%- endfor %}
+{%- endmacro %}
+
+{% macro table() -%}
+{% if kwargs.cdn != false -%}
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
+<script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
+  integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
+{%- endif %}
+{% autoescape false -%}
+<table class="{{ kwargs.table_classes }}" id="{{ kwargs.table_id }}">
+  <caption>{{ kwargs.table_caption }}</caption>
+  <thead {{ 'class="{}"'.format(kwargs.thead_classes) if kwargs.thead_classes }}>
+    {{ header_row(kwargs.header) }}
+  </thead>
+  {{ rows(kwargs.data) }}
+</table>
+<script>
+  $(document).ready(function () {
+    $('#{{ kwargs.table_id }}').DataTable({
+      "order": {{ kwargs.dt_order }}
+    });
+  });
+</script>
+{% endautoescape %}
+{% endmacro %}
+
+{{ table(
+  data=data,
+  header=header,
+  table_classes=table_classes,
+  table_id=table_id,
+  table_caption=table_caption,
+  thead_classes=thead_classes,
+  cdn=cdn,
+  dt_order=dt_order,
+) }}
